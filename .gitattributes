@@ -1,0 +1,4 @@
+# Define text file attributes.
+# - Ensure no CRLF line-endings, neither on checkout nor on checkin.
+*.java eol=lf
+*.sh eol=lf
