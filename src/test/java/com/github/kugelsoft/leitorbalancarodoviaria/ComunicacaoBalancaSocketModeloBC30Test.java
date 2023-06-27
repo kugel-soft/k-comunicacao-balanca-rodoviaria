@@ -57,7 +57,7 @@ public class ComunicacaoBalancaSocketModeloBC30Test extends TesteBalancaSocket {
 
     @Test
     public void lerPesoEstavel() throws Exception {
-        enviar("x083221029", " 083271029", "a083191029");
+        enviar("x083221029", "    -083271029", "a083191029");
 
         BigDecimal peso = comunicacaoBalanca.lerPeso();
         assertEquals(83221, peso.doubleValue(), 0);
