@@ -17,6 +17,9 @@ class ComunicacaoBalancaModeloBC30 extends ComunicacaoBalanca {
 		String retorno = enviarComando(" ", 10);
 
 		String peso = substring(retorno.trim(), 1, 7);
+		if (!peso.matches("[0-9]+")) {
+			peso = substring(retorno.trim(), 1, 6);
+		}
 
 		try {
 			return new BigDecimal(peso.trim());
