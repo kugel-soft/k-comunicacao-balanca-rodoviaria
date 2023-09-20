@@ -7,6 +7,7 @@ public class ParametrosBalanca {
     private int quantidadeLeiturasConsiderarPesoEstavel;
     private int milissegundosEntreLeiturasConsiderarPesoEstavel;
     private int pesoToleranciaConsiderarPesoEstavel;
+    private int milissegundosTimeoutComunicacao;
 
     /**
      * Cria um novo parâmetro definindo o modelo, o ip e a porta para fazer a leitura da balança
@@ -19,6 +20,7 @@ public class ParametrosBalanca {
         this.quantidadeLeiturasConsiderarPesoEstavel = 1;
         this.milissegundosEntreLeiturasConsiderarPesoEstavel = 500;
         this.pesoToleranciaConsiderarPesoEstavel = 20;
+        this.milissegundosTimeoutComunicacao = 60000;
     }
 
     public String getIp() {
@@ -68,5 +70,18 @@ public class ParametrosBalanca {
      */
     public void setPesoToleranciaConsiderarPesoEstavel(int pesoToleranciaConsiderarPesoEstavel) {
         this.pesoToleranciaConsiderarPesoEstavel = pesoToleranciaConsiderarPesoEstavel;
+    }
+
+    public int getMilissegundosTimeoutComunicacao() {
+        return milissegundosTimeoutComunicacao;
+    }
+
+    /**
+     * Define quantos milissegundos deve esperar para dar timeout na comunicação com a balança <br>
+     * Valor padrão: 60000
+     * @param milissegundosTimeoutComunicacao milissegundos de timeout
+     */
+    public void setMilissegundosTimeoutComunicacao(int milissegundosTimeoutComunicacao) {
+        this.milissegundosTimeoutComunicacao = milissegundosTimeoutComunicacao;
     }
 }

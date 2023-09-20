@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public abstract class ComunicacaoBalanca {
@@ -32,7 +33,9 @@ public abstract class ComunicacaoBalanca {
 		String retorno = "";
 		Socket socket = null;
 		try {
-			socket = new Socket(parametros.getIp(), parametros.getPorta());
+			socket = new Socket();
+			socket.connect(new InetSocketAddress(parametros.getIp(), parametros.getPorta()), parametros.getMilissegundosTimeoutComunicacao());
+			socket.setSoTimeout(parametros.getMilissegundosTimeoutComunicacao());
 
 			InputStream inputStream = socket.getInputStream();
 			OutputStream outputStream = socket.getOutputStream();
