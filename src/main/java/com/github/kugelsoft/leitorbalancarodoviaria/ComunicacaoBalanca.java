@@ -6,9 +6,11 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Arrays;
 
 public abstract class ComunicacaoBalanca {
 
+	public static final int BYTES_BUFFER_SIZE = 10240;
 	protected ParametrosBalanca parametros;
 
 	protected ComunicacaoBalanca(ParametrosBalanca parametros) {
@@ -47,10 +49,16 @@ public abstract class ComunicacaoBalanca {
 
 				int tentativas = 0;
 				do {
-					byte[] bytes = new byte[256];
-					inputStream.read(bytes);
+					if (tentativas >= 1) {
+						try { Thread.sleep(100); } catch (Exception ignored) {}
+					}
+					byte[] bytes = new byte[BYTES_BUFFER_SIZE];
+					int readBytes = inputStream.read(bytes);
+					if (readBytes >= 0) {
+						bytes = Arrays.copyOf(bytes, readBytes);
+					}
 					retorno = rightTrim(new String(bytes));
-					System.out.println("Recebeu: " + retorno);
+					System.out.println("Recebeu: " + retorno.replace("\r", "\\r").replace("\n", "\\n"));
 					tentativas++;
 				} while (retorno.length() < minBytes && tentativas < 10);
 			}
