@@ -1,4 +1,4 @@
-# k-leitor-balanca-rodoviaria
+# k-comunicacao-balanca-rodoviaria
 
 Biblioteca para comunicação com balanças rodoviárias via TCP/IP.
 
