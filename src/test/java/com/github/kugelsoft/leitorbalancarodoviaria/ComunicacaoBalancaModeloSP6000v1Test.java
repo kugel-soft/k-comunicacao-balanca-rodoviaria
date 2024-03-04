@@ -2,7 +2,6 @@ package com.github.kugelsoft.leitorbalancarodoviaria;
 
 import com.github.kugelsoft.leitorbalancarodoviaria.modelos.ModeloBalanca;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -11,22 +10,35 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class ComunicacaoBalancaSocketModeloIND560Test extends TesteBalancaSocket {
+public class ComunicacaoBalancaModeloSP6000v1Test extends TesteBalancaSocket {
 
     private ComunicacaoBalanca comunicacaoBalanca;
 
     @Before
     public void before() throws IOException {
         ParametrosBalanca parametros = new ParametrosBalanca("127.0.0.1", createSocket());
-        parametros.setQuantidadeLeiturasConsiderarPesoEstavel(4);
+        parametros.setQuantidadeLeiturasConsiderarPesoEstavel(2);
         parametros.setMilissegundosEntreLeiturasConsiderarPesoEstavel(100);
-        parametros.setPesoToleranciaConsiderarPesoEstavel(50);
-        comunicacaoBalanca = ModeloBalanca.IND560.getComunicacaoBalanca(parametros);
+        parametros.setPesoToleranciaConsiderarPesoEstavel(0);
+        comunicacaoBalanca = ModeloBalanca.SP6000v1.getComunicacaoBalanca(parametros);
     }
 
     @Test
     public void lerPesoInvalido() throws Exception {
-        enviar("xxxxxxxxxxxxxxxxxxxxxxx");
+        enviar("x0052140E");
+
+        PesoInvalidoException ex = null;
+        try {
+            comunicacaoBalanca.lerPeso();
+        } catch (PesoInvalidoException e) {
+            ex = e;
+        }
+        assertNotNull("Deveria ter gerado PesoInvalidoException", ex);
+    }
+
+    @Test
+    public void lerPesoInvalido2() throws Exception {
+        enviar("g005x140E");
 
         PesoInvalidoException ex = null;
         try {
@@ -39,13 +51,13 @@ public class ComunicacaoBalancaSocketModeloIND560Test extends TesteBalancaSocket
 
     @Test
     public void testarConexao() throws Exception {
-        enviar("");
+        enviar("x");
         comunicacaoBalanca.testarConexao();
     }
 
     @Test
     public void lerPesoInstavel() throws Exception {
-        enviar("xxxx01486000015687aaa", "xxxx015860000123");
+        enviar("g0000012I");
 
         PesoInstavelException ex = null;
         try {
@@ -56,12 +68,12 @@ public class ComunicacaoBalancaSocketModeloIND560Test extends TesteBalancaSocket
         assertNotNull("Deveria ter gerado PesoInstavelException", ex);
     }
 
-
     @Test
     public void lerPesoEstavel() throws Exception {
-        enviar("xxxx01486000015687aaa", "xxxx01487000000000aaa", "xxxx01487000000000aaa", "xxxx01489000000000aaa");
+        enviar("g0052140E", "g0052140E");
 
         BigDecimal peso = comunicacaoBalanca.lerPeso();
-        assertEquals(14860, peso.doubleValue(), 0);
+        assertEquals(52140, peso.doubleValue(), 0);
     }
+
 }

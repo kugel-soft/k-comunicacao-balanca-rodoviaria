@@ -11,7 +11,8 @@ public enum ModeloBalanca {
     SP6000v3("SP-6000 v3", ComunicacaoBalancaModeloSP6000v3.class),
     SBR140("SBR-140", ComunicacaoBalancaModeloSBR140.class),
     IND560("IND-560", ComunicacaoBalancaModeloIND560.class),
-    BC30("BC-30", ComunicacaoBalancaModeloBC30.class);
+    BC30("BC-30", ComunicacaoBalancaModeloBC30.class),
+    WT3000I("WT3000-I", ComunicacaoBalancaModeloWT3000I.class);
 
     private final String descricao;
     private final Class<? extends ComunicacaoBalanca> classeComunicao;

@@ -2,16 +2,14 @@ package com.github.kugelsoft.leitorbalancarodoviaria;
 
 import com.github.kugelsoft.leitorbalancarodoviaria.modelos.ModeloBalanca;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
-public class ComunicacaoBalancaSocketModeloSP2600Test extends TesteBalancaSocket {
+public class ComunicacaoBalancaModeloWT3000ITest extends TesteBalancaSocket {
 
     private ComunicacaoBalanca comunicacaoBalanca;
 
@@ -20,13 +18,13 @@ public class ComunicacaoBalancaSocketModeloSP2600Test extends TesteBalancaSocket
         ParametrosBalanca parametros = new ParametrosBalanca("127.0.0.1", createSocket());
         parametros.setQuantidadeLeiturasConsiderarPesoEstavel(2);
         parametros.setMilissegundosEntreLeiturasConsiderarPesoEstavel(100);
-        parametros.setPesoToleranciaConsiderarPesoEstavel(200);
-        comunicacaoBalanca = ModeloBalanca.SP2600.getComunicacaoBalanca(parametros);
+        parametros.setPesoToleranciaConsiderarPesoEstavel(50);
+        comunicacaoBalanca = ModeloBalanca.WT3000I.getComunicacaoBalanca(parametros);
     }
 
     @Test
     public void lerPesoInvalido() throws Exception {
-        enviar("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+        enviar("xxxxxxxxxxxxxxxxxxxxxxxxxx");
 
         PesoInvalidoException ex = null;
         try {
@@ -45,7 +43,7 @@ public class ComunicacaoBalancaSocketModeloSP2600Test extends TesteBalancaSocket
 
     @Test
     public void lerPesoInstavel() throws Exception {
-        enviar("xxxx001486000015687aaaooooooooooooo", "xxxx0015860000123ooooooooooooo");
+        enviar("US,GS,+ 133960  kg", "US,GS,+ 134960  kg");
 
         PesoInstavelException ex = null;
         try {
@@ -59,9 +57,17 @@ public class ComunicacaoBalancaSocketModeloSP2600Test extends TesteBalancaSocket
 
     @Test
     public void lerPesoEstavel() throws Exception {
-        enviar("xxxx001486000015687aaaoooooooo", "xxxx001506000000000aaaoooooooo");
+        enviar("US,GS,+ 133960  kg", "US,GS,+ 133960  kg");
 
         BigDecimal peso = comunicacaoBalanca.lerPeso();
-        assertEquals(14860, peso.doubleValue(), 0);
+        assertEquals(133960, peso.doubleValue(), 0);
+    }
+
+    @Test
+    public void lerPesoEstavelZero() throws Exception {
+        enviar("US,GS,+      0  kg", "US,GS,+      0  kg");
+
+        BigDecimal peso = comunicacaoBalanca.lerPeso();
+        assertEquals(0, peso.doubleValue(), 0);
     }
 }

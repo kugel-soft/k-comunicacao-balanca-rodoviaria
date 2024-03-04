@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class ComunicacaoBalancaSocketModeloSP6000v3Test extends TesteBalancaSocket {
+public class ComunicacaoBalancaModeloSP6000v3Test extends TesteBalancaSocket {
 
     private ComunicacaoBalanca comunicacaoBalanca;
 

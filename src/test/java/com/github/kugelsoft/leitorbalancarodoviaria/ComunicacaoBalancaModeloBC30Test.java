@@ -2,7 +2,6 @@ package com.github.kugelsoft.leitorbalancarodoviaria;
 
 import com.github.kugelsoft.leitorbalancarodoviaria.modelos.ModeloBalanca;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -10,7 +9,7 @@ import java.math.BigDecimal;
 
 import static org.junit.Assert.*;
 
-public class ComunicacaoBalancaSocketModeloBC30Test extends TesteBalancaSocket {
+public class ComunicacaoBalancaModeloBC30Test extends TesteBalancaSocket {
 
     private ComunicacaoBalanca comunicacaoBalanca;
 

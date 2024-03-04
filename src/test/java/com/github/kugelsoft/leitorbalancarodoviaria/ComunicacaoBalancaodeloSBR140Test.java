@@ -10,22 +10,22 @@ import java.math.BigDecimal;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class ComunicacaoBalancaSocketModeloSP6000v2Test extends TesteBalancaSocket {
+public class ComunicacaoBalancaodeloSBR140Test extends TesteBalancaSocket {
 
     private ComunicacaoBalanca comunicacaoBalanca;
 
     @Before
     public void before() throws IOException {
         ParametrosBalanca parametros = new ParametrosBalanca("127.0.0.1", createSocket());
-        parametros.setQuantidadeLeiturasConsiderarPesoEstavel(2);
+        parametros.setQuantidadeLeiturasConsiderarPesoEstavel(3);
         parametros.setMilissegundosEntreLeiturasConsiderarPesoEstavel(100);
         parametros.setPesoToleranciaConsiderarPesoEstavel(50);
-        comunicacaoBalanca = ModeloBalanca.SP6000v2.getComunicacaoBalanca(parametros);
+        comunicacaoBalanca = ModeloBalanca.SBR140.getComunicacaoBalanca(parametros);
     }
 
     @Test
     public void lerPesoInvalido() throws Exception {
-        enviar("xxxxxxx");
+        enviar("xxxxxxxxxxxxxxxxxxxxxxx");
 
         PesoInvalidoException ex = null;
         try {
@@ -44,7 +44,7 @@ public class ComunicacaoBalancaSocketModeloSP6000v2Test extends TesteBalancaSock
 
     @Test
     public void lerPesoInstavel() throws Exception {
-        enviar("o010000", "o010200");
+        enviar("xxxx01486000015687aaa", "xxxx015860000123");
 
         PesoInstavelException ex = null;
         try {
@@ -58,9 +58,9 @@ public class ComunicacaoBalancaSocketModeloSP6000v2Test extends TesteBalancaSock
 
     @Test
     public void lerPesoEstavel() throws Exception {
-        enviar("o010000", "o010050");
+        enviar("xxxx01486000015687aaa", "xxxx01487000000000aaa", "xxxx01487000000000aaa", "xxxx01489000000000aaa");
 
         BigDecimal peso = comunicacaoBalanca.lerPeso();
-        assertEquals(10000, peso.doubleValue(), 0);
+        assertEquals(14860, peso.doubleValue(), 0);
     }
 }
