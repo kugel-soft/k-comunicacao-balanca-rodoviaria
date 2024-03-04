@@ -16,11 +16,6 @@ class ComunicacaoBalancaModeloBC30 extends ComunicacaoBalanca {
 	protected BigDecimal lerPesoModelo() throws IOException, PesoInvalidoException {
 		String retorno = enviarComando(" ", 10);
 
-		String[] vals = retorno.trim().replace("\r", "").split("\n");
-		if (vals.length > 1) {
-			retorno = vals[vals.length - 2];
-		}
-
 		String peso = substring(retorno.trim(), 1, 7);
 		if (!peso.matches("[0-9]+")) {
 			peso = substring(retorno.trim(), 1, 6);

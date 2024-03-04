@@ -61,6 +61,18 @@ public abstract class ComunicacaoBalanca {
 					System.out.println("Recebeu: " + retorno.replace("\r", "\\r").replace("\n", "\\n"));
 					tentativas++;
 				} while (retorno.length() < minBytes && tentativas < 10);
+
+				String[] vals = retorno.trim().replace("\r", "").split("\n");
+				if (vals.length > 1) {
+					int maxLength = 0;
+					for (String val : vals) {
+						if (maxLength == 0 || val.length() >= maxLength) {
+							maxLength = val.length();
+							retorno = val;
+						}
+					}
+					System.out.println("Considerando: " + retorno);
+				}
 			}
 
 			socket.close();

@@ -65,7 +65,7 @@ public class ComunicacaoBalancaModeloWT3000ITest extends TesteBalancaSocket {
 
     @Test
     public void lerPesoEstavelZero() throws Exception {
-        enviar("US,GS,+      0  kg", "US,GS,+      0  kg");
+        enviar("US,GS,+      0  kg", "kg\r\nST,GS,+      0  kg\n");
 
         BigDecimal peso = comunicacaoBalanca.lerPeso();
         assertEquals(0, peso.doubleValue(), 0);

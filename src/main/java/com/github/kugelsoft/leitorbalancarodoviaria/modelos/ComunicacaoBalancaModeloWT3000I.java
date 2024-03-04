@@ -16,11 +16,6 @@ class ComunicacaoBalancaModeloWT3000I extends ComunicacaoBalanca {
 	protected BigDecimal lerPesoModelo() throws IOException, PesoInvalidoException {
 		String retorno = enviarComando(" ", 17);
 
-		String[] vals = retorno.trim().replace("\r", "").split("\n");
-		if (vals.length > 1) {
-			retorno = vals[vals.length - 2];
-		}
-
 		String peso = substring(retorno.trim(), 8, 14);
 
 		try {
