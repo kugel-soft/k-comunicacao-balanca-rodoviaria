@@ -10,7 +10,8 @@ import java.util.Arrays;
 
 public abstract class ComunicacaoBalanca {
 
-	public static final int BYTES_BUFFER_SIZE = 10240;
+	private static final int BYTES_BUFFER_SIZE = 10240;
+	private static final byte[] EMPTY_ARRAY = new byte[0];
 	protected ParametrosBalanca parametros;
 
 	protected ComunicacaoBalanca(ParametrosBalanca parametros) {
@@ -31,7 +32,7 @@ public abstract class ComunicacaoBalanca {
 		return enviarComando(cmd, 0);
 	}
 
-	protected String enviarComando(String cmd, int minBytes) throws IOException {
+	protected String enviarComando(String cmd, int minChars) throws IOException {
 		String retorno = "";
 		Socket socket = null;
 		try {
@@ -56,11 +57,13 @@ public abstract class ComunicacaoBalanca {
 					int readBytes = inputStream.read(bytes);
 					if (readBytes >= 0) {
 						bytes = Arrays.copyOf(bytes, readBytes);
+					} else {
+						bytes = EMPTY_ARRAY;
 					}
 					retorno = rightTrim(new String(bytes));
-					System.out.println("Recebeu: " + retorno.replace("\r", "\\r").replace("\n", "\\n"));
+					System.out.println("Recebeu: [" + retorno.replace("\r", "\\r").replace("\n", "\\n") + "] bytes: " + Arrays.toString(bytes));
 					tentativas++;
-				} while (retorno.length() < minBytes && tentativas < 10);
+				} while (retorno.length() < minChars && tentativas < 10);
 
 				String[] vals = retorno.trim().replace("\r", "").split("\n");
 				if (vals.length > 1) {

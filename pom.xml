@@ -6,7 +6,7 @@
 
     <groupId>com.github.kugel-soft</groupId>
     <artifactId>k-comunicacao-balanca-rodoviaria</artifactId>
-    <version>1.6.0</version>
+    <version>1.7.0</version>
 
     <packaging>jar</packaging>
     <name>k-comunicacao-balanca-rodoviaria</name>
@@ -34,6 +34,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>6</maven.compiler.source>
         <maven.compiler.target>6</maven.compiler.target>
     </properties>
@@ -81,6 +82,13 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                </configuration>
             </plugin>
         </plugins>
         <extensions>

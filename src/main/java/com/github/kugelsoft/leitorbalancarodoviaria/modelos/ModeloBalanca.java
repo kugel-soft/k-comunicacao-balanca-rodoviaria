@@ -9,6 +9,7 @@ public enum ModeloBalanca {
     SP6000v1("SP-6000 v1", ComunicacaoBalancaModeloSP6000v1.class),
     SP6000v2("SP-6000 v2", ComunicacaoBalancaModeloSP6000v2.class),
     SP6000v3("SP-6000 v3", ComunicacaoBalancaModeloSP6000v3.class),
+    SP6000v4("SP-6000 v4", ComunicacaoBalancaModeloSP6000v4.class),
     SBR140("SBR-140", ComunicacaoBalancaModeloSBR140.class),
     IND560("IND-560", ComunicacaoBalancaModeloIND560.class),
     BC30("BC-30", ComunicacaoBalancaModeloBC30.class),

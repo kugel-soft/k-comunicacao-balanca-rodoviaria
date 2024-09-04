@@ -30,6 +30,9 @@ try {
 }
 ```
 
-Para testes o modelo ModeloBalanca.TESTE pode ser utilizado, a ComunicacaoBalanca irá gerar um peso aleatório a cada chamada ao lerPeso() 
+Para testes o modelo ModeloBalanca.TESTE pode ser utilizado, a ComunicacaoBalanca irá gerar um peso aleatório a cada chamada ao lerPeso()
+
+## Para liberar uma nova versão
+> mvn clean install deploy
 
 #### Desenvolvido por [Kugel Soft Informática LTDA](https://www.kugel.com.br)
