@@ -77,4 +77,51 @@ public class ComunicacaoBalancaModeloBC30Test extends TesteBalancaSocket {
         BigDecimal peso = comunicacaoBalanca.lerPeso();
         assertEquals(22020, peso.doubleValue(), 0);
     }
+
+    @Test
+    public void lerPesoEstavel4() throws Exception {
+        String str = new String(new byte[] {13, 49, 48, 51, 50, 50, 48, 69, 76, 95, 32, 10});
+        enviar(str, str, str);
+
+        BigDecimal peso = comunicacaoBalanca.lerPeso();
+        assertEquals(103220, peso.doubleValue(), 0);
+    }
+
+
+    @Test
+    public void lerPesoEstavel5() throws Exception {
+        String str = new String(new byte[] {13, 48, 48, 48, 48, 48, 48, 69, 76, 95, 32, 10});
+        enviar(str, str, str);
+
+        BigDecimal peso = comunicacaoBalanca.lerPeso();
+        assertEquals(0, peso.doubleValue(), 0);
+    }
+
+    @Test
+    public void lerPesoEstavel6() throws Exception {
+        String str = new String(new byte[] {13, 48, 48, 48, 48, 48, 48, 10, 13, 48, 48, 48, 48, 48, 48, 10, 13, 48, 48, 48, 48, 48, 48, 10, 13, 48, 48, 48, 48, 48, 48, 10});
+        enviar(str, str, str);
+
+        BigDecimal peso = comunicacaoBalanca.lerPeso();
+        assertEquals(0, peso.doubleValue(), 0);
+    }
+
+    @Test
+    public void lerPesoEstavel7() throws Exception {
+        String str = new String(new byte[] {13, 45, 48, 48, 48, 56, 48, 69, 76, 95, 32, 10});
+        enviar(str, str, str);
+
+        BigDecimal peso = comunicacaoBalanca.lerPeso();
+        assertEquals(80, peso.doubleValue(), 0);
+    }
+
+    @Test
+    public void lerPesoEstavel8() throws Exception {
+        String str = new String(new byte[] {13, 45, 48, 48, 48, 56, 48, 69, 76, 95, 32, 10});
+        enviar(str, str, str);
+
+        BigDecimal peso = comunicacaoBalanca.lerPeso();
+        assertEquals(80, peso.doubleValue(), 0);
+    }
+
 }
