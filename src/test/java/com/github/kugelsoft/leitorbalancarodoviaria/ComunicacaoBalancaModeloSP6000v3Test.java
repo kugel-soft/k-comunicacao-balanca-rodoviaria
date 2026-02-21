@@ -58,9 +58,49 @@ public class ComunicacaoBalancaModeloSP6000v3Test extends TesteBalancaSocket {
 
     @Test
     public void lerPesoEstavel() throws Exception {
-        enviar("xxxxx100050xxxxxxxxxxxxxxx", "xxxxx100020xxxxxxxxxxxxxxx");
+        enviar("xxxx0100050xxxxxxxxxxxxxxx", "xxxx0100020xxxxxxxxxxxxxxx");
 
         BigDecimal peso = comunicacaoBalanca.lerPeso();
         assertEquals(100050, peso.doubleValue(), 0);
+    }
+
+    @Test
+    public void lerPeso1() throws Exception {
+        enviar("    00334000110033400000000000", "    00334000110033400000000000");
+
+        BigDecimal peso = comunicacaoBalanca.lerPeso();
+        assertEquals(33400, peso.doubleValue(), 0);
+    }
+
+    @Test
+    public void lerPeso2() throws Exception {
+        enviar(" 00299000110029900000000000", " 00299000110029900000000000");
+
+        BigDecimal peso = comunicacaoBalanca.lerPeso();
+        assertEquals(29900, peso.doubleValue(), 0);
+    }
+
+    @Test
+    public void lerPeso3() throws Exception {
+        enviar("     00174700110017470000000000", "     00174700110017470000000000");
+
+        BigDecimal peso = comunicacaoBalanca.lerPeso();
+        assertEquals(17470, peso.doubleValue(), 0);
+    }
+
+    @Test
+    public void lerPeso4() throws Exception {
+        enviar("00035600110003560000000000", "00035600110003560000000000");
+
+        BigDecimal peso = comunicacaoBalanca.lerPeso();
+        assertEquals(3560, peso.doubleValue(), 0);
+    }
+
+    @Test
+    public void lerPeso5() throws Exception {
+        enviar("abc01035600110003560000000000", "abc01035600110003560000000000");
+
+        BigDecimal peso = comunicacaoBalanca.lerPeso();
+        assertEquals(103560, peso.doubleValue(), 0);
     }
 }
