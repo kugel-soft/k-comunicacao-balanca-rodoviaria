@@ -7,8 +7,11 @@ import java.math.BigDecimal;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.logging.Logger;
 
 public abstract class ComunicacaoBalanca {
+
+	private static final Logger logger = Logger.getLogger(ComunicacaoBalanca.class.getName());
 
 	private static final int BYTES_BUFFER_SIZE = 10240;
 	private static final byte[] EMPTY_ARRAY = new byte[0];
@@ -16,6 +19,7 @@ public abstract class ComunicacaoBalanca {
 
 	protected ComunicacaoBalanca(ParametrosBalanca parametros) {
 		this.parametros = parametros;
+		logger.finest("Iniciando " + getClass().getSimpleName() + " - " + parametros.getIp() + ":" + parametros.getPorta());
 	}
 
 	protected String substring(String retorno, int indexIniInclusive, int indexFimExclusive) {
@@ -46,22 +50,25 @@ public abstract class ComunicacaoBalanca {
 			if (cmd != null) {
 				outputStream.write(cmd.getBytes());
 				outputStream.flush();
-				System.out.println("Enviou: " + cmd);
+				logger.fine("Enviou: " + cmd);
 
 				int tentativas = 0;
 				do {
-					if (tentativas >= 1) {
-						try { Thread.sleep(100); } catch (Exception ignored) {}
-					}
 					byte[] bytes = new byte[BYTES_BUFFER_SIZE];
 					int readBytes = inputStream.read(bytes);
+					if (tentativas == 0 && readBytes > 0 && isIgnorarPrimeirosBytes()) {
+						logger.finest("Ignorando " + readBytes + " bytes");
+						outputStream.write(cmd.getBytes());
+						outputStream.flush();
+						readBytes = inputStream.read(bytes);
+					}
 					if (readBytes >= 0) {
 						bytes = Arrays.copyOf(bytes, readBytes);
 					} else {
 						bytes = EMPTY_ARRAY;
 					}
 					retorno = rightTrim(new String(bytes));
-					System.out.println("Recebeu: [" + retorno.replace("\r", "\\r").replace("\n", "\\n") + "] bytes: " + Arrays.toString(bytes));
+					logger.fine("Recebeu: [" + retorno.replace("\r", "\\r").replace("\n", "\\n") + "] bytes: " + Arrays.toString(bytes));
 					tentativas++;
 				} while (retorno.length() < minChars && tentativas < 10);
 
@@ -74,7 +81,7 @@ public abstract class ComunicacaoBalanca {
 							retorno = val;
 						}
 					}
-					System.out.println("Considerando: " + retorno);
+					logger.fine("Considerando: " + retorno);
 				}
 			}
 
@@ -133,4 +140,9 @@ public abstract class ComunicacaoBalanca {
 	 * @throws IOException se ocorrer algum erro de comunicação
 	 */
 	public abstract void testarConexao() throws IOException;
+
+	public boolean isIgnorarPrimeirosBytes() {
+		return true;
+	}
+
 }

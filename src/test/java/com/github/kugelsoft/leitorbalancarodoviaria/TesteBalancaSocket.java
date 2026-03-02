@@ -22,9 +22,15 @@ public class TesteBalancaSocket {
                 try {
                     for (String str : strs) {
                         Socket socket = server.accept();
-                        socket.getInputStream().read(new byte[1]);
-                        socket.getOutputStream().write(str.getBytes("UTF-8"));
-                        socket.getOutputStream().flush();
+                        for (int i = 0; i < 2; i++) {
+                            try {
+                                socket.getInputStream().read(new byte[1]);
+                            } catch (Exception ex) {
+                                ex.printStackTrace();
+                            }
+                            socket.getOutputStream().write(str.getBytes("UTF-8"));
+                            socket.getOutputStream().flush();
+                        }
                         socket.close();
                     }
                 } catch (Exception ex){

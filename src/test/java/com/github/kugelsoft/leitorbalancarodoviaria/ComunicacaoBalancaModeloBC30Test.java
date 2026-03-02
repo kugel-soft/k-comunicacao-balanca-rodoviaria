@@ -24,7 +24,7 @@ public class ComunicacaoBalancaModeloBC30Test extends TesteBalancaSocket {
 
     @Test
     public void testarConexao() throws Exception {
-        enviar("");
+        enviar(" ");
         comunicacaoBalanca.testarConexao();
     }
 

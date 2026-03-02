@@ -6,7 +6,7 @@
 
     <groupId>com.github.kugel-soft</groupId>
     <artifactId>k-comunicacao-balanca-rodoviaria</artifactId>
-    <version>1.9.0</version>
+    <version>1.10.0</version>
 
     <packaging>jar</packaging>
     <name>k-comunicacao-balanca-rodoviaria</name>
@@ -87,6 +87,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
+                    <systemPropertyVariables>
+                        <java.util.logging.manager>com.github.kugelsoft.leitorbalancarodoviaria.LogManager</java.util.logging.manager>
+                    </systemPropertyVariables>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                 </configuration>
             </plugin>

@@ -39,4 +39,9 @@ class ComunicacaoBalancaModeloSP6000v1 extends ComunicacaoBalanca {
 	public void testarConexao() throws IOException {
 		enviarComando("K");
 	}
+
+	@Override
+	public boolean isIgnorarPrimeirosBytes() {
+		return false;
+	}
 }

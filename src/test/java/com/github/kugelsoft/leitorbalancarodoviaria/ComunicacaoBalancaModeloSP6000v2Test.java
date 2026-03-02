@@ -38,7 +38,7 @@ public class ComunicacaoBalancaModeloSP6000v2Test extends TesteBalancaSocket {
 
     @Test
     public void testarConexao() throws Exception {
-        enviar("");
+        enviar(" ");
         comunicacaoBalanca.testarConexao();
     }
 
