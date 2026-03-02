@@ -5,9 +5,11 @@ import org.junit.After;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 
 public class TesteBalancaSocket {
     private ServerSocket server;
+    private boolean modoContinuo;
 
     public int createSocket() throws IOException {
         server = new ServerSocket(0);
@@ -20,18 +22,36 @@ public class TesteBalancaSocket {
             @Override
             public void run() {
                 try {
-                    for (String str : strs) {
+                    if (modoContinuo) {
                         Socket socket = server.accept();
-                        for (int i = 0; i < 2; i++) {
-                            try {
-                                socket.getInputStream().read(new byte[1]);
-                            } catch (Exception ex) {
-                                ex.printStackTrace();
+                        while (modoContinuo) {
+                            for (String str : strs) {
+                                try {
+                                    socket.getOutputStream().write(str.getBytes("UTF-8"));
+                                    socket.getOutputStream().flush();
+                                    Thread.sleep(10);
+                                } catch (SocketException ex) {
+                                    if (modoContinuo) {
+                                        socket = server.accept();
+                                    }
+                                }
                             }
-                            socket.getOutputStream().write(str.getBytes("UTF-8"));
-                            socket.getOutputStream().flush();
                         }
                         socket.close();
+                    } else {
+                        for (String str : strs) {
+                            Socket socket = server.accept();
+                            for (int i = 0; i < 2; i++) {
+                                try {
+                                    socket.getInputStream().read(new byte[1]);
+                                } catch (Exception ex) {
+                                    ex.printStackTrace();
+                                }
+                                socket.getOutputStream().write(str.getBytes("UTF-8"));
+                                socket.getOutputStream().flush();
+                            }
+                            socket.close();
+                        }
                     }
                 } catch (Exception ex){
                     ex.printStackTrace();
@@ -39,6 +59,10 @@ public class TesteBalancaSocket {
             }
         };
         t.start();
+    }
+
+    public void setModoContinuo(boolean modoContinuo) {
+        this.modoContinuo = modoContinuo;
     }
 
     @After

@@ -30,7 +30,7 @@ public class ComunicacaoBalancaModeloBC30Test extends TesteBalancaSocket {
 
     @Test
     public void lerPesoInvalido() throws Exception {
-        enviar("xxxxxxxxxxxxxxxxx");
+        enviar("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
 
         PesoInvalidoException ex = null;
         try {
@@ -43,7 +43,7 @@ public class ComunicacaoBalancaModeloBC30Test extends TesteBalancaSocket {
 
     @Test
     public void lerPesoInstavel() throws Exception {
-        enviar("x083221029", " 012345000");
+        enviar("x083221029\nx083221029\nx083221029", " 012345000\n 012345000\n 012345000");
 
         PesoInstavelException ex = null;
         try {
@@ -56,7 +56,7 @@ public class ComunicacaoBalancaModeloBC30Test extends TesteBalancaSocket {
 
     @Test
     public void lerPesoEstavel() throws Exception {
-        enviar("x083221029", "    -083271029", "a083191029");
+        enviar("x083221029\rx083221029\rx083221029\rx083221029", "    -083271029    -083271029    -083271029    -083271029    -083271029", "a083191029a083191029a083191029a083191029a083191029a083191029");
 
         BigDecimal peso = comunicacaoBalanca.lerPeso();
         assertEquals(83221, peso.doubleValue(), 0);
@@ -64,7 +64,7 @@ public class ComunicacaoBalancaModeloBC30Test extends TesteBalancaSocket {
 
     @Test
     public void lerPesoEstavel2() throws Exception {
-        enviar(" 029460OL_", " 029460OL_", " 029460OL_");
+        enviar(" 029460OL_\n 029460OL_\n 029460OL_", " 029460OL_\n\r 029460OL_\n\r 029460OL_", " 029460OL_ 029460OL_ 029460OL_ 029460OL_ 029460OL_");
 
         BigDecimal peso = comunicacaoBalanca.lerPeso();
         assertEquals(29460, peso.doubleValue(), 0);
@@ -72,7 +72,7 @@ public class ComunicacaoBalancaModeloBC30Test extends TesteBalancaSocket {
 
     @Test
     public void lerPesoEstavel3() throws Exception {
-        enviar("\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r022020\n\r022020\n\r022020\n", "\r022020\n\r022020\n\r022020\n", "022020\r022020");
+        enviar("\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r001234\n\r022020\n\r022020\n\r022020\n", "\r022020\n\r022020\n\r022020\n\r022020", "022020\r022020\r022020\r022020\r022020");
 
         BigDecimal peso = comunicacaoBalanca.lerPeso();
         assertEquals(22020, peso.doubleValue(), 0);
@@ -80,7 +80,7 @@ public class ComunicacaoBalancaModeloBC30Test extends TesteBalancaSocket {
 
     @Test
     public void lerPesoEstavel4() throws Exception {
-        String str = new String(new byte[] {13, 49, 48, 51, 50, 50, 48, 69, 76, 95, 32, 10});
+        String str = new String(new byte[] {13, 49, 48, 51, 50, 50, 48, 69, 76, 95, 32, 10, 13, 49, 48, 51, 50, 50, 48, 69, 76, 95, 32, 10, 13, 49, 48, 51, 50, 50, 48, 69, 76, 95, 32, 10});
         enviar(str, str, str);
 
         BigDecimal peso = comunicacaoBalanca.lerPeso();
@@ -90,7 +90,7 @@ public class ComunicacaoBalancaModeloBC30Test extends TesteBalancaSocket {
 
     @Test
     public void lerPesoEstavel5() throws Exception {
-        String str = new String(new byte[] {13, 48, 48, 48, 48, 48, 48, 69, 76, 95, 32, 10});
+        String str = new String(new byte[] {13, 48, 48, 48, 48, 48, 48, 69, 76, 95, 32, 10, 13, 48, 48, 48, 48, 48, 48, 69, 76, 95, 32, 10, 13, 48, 48, 48, 48, 48, 48, 69, 76, 95, 32, 10});
         enviar(str, str, str);
 
         BigDecimal peso = comunicacaoBalanca.lerPeso();
@@ -99,7 +99,7 @@ public class ComunicacaoBalancaModeloBC30Test extends TesteBalancaSocket {
 
     @Test
     public void lerPesoEstavel6() throws Exception {
-        String str = new String(new byte[] {13, 48, 48, 48, 48, 48, 48, 10, 13, 48, 48, 48, 48, 48, 48, 10, 13, 48, 48, 48, 48, 48, 48, 10, 13, 48, 48, 48, 48, 48, 48, 10});
+        String str = new String(new byte[] {13, 48, 48, 48, 48, 48, 48, 10, 13, 48, 48, 48, 48, 48, 48, 10, 13, 48, 48, 48, 48, 48, 48, 10, 13, 48, 48, 48, 48, 48, 48, 10, 13, 48, 48, 48, 48, 48, 48, 10, 13, 48, 48, 48, 48, 48, 48, 10, 13, 48, 48, 48, 48, 48, 48, 10, 13, 48, 48, 48, 48, 48, 48, 10});
         enviar(str, str, str);
 
         BigDecimal peso = comunicacaoBalanca.lerPeso();
@@ -108,7 +108,7 @@ public class ComunicacaoBalancaModeloBC30Test extends TesteBalancaSocket {
 
     @Test
     public void lerPesoEstavel7() throws Exception {
-        String str = new String(new byte[] {13, 45, 48, 48, 48, 56, 48, 69, 76, 95, 32, 10});
+        String str = new String(new byte[] {13, 45, 48, 48, 48, 56, 48, 69, 76, 95, 32, 10, 13, 45, 48, 48, 48, 56, 48, 69, 76, 95, 32, 10, 13, 45, 48, 48, 48, 56, 48, 69, 76, 95, 32, 10});
         enviar(str, str, str);
 
         BigDecimal peso = comunicacaoBalanca.lerPeso();
@@ -117,11 +117,28 @@ public class ComunicacaoBalancaModeloBC30Test extends TesteBalancaSocket {
 
     @Test
     public void lerPesoEstavel8() throws Exception {
-        String str = new String(new byte[] {13, 45, 48, 48, 48, 56, 48, 69, 76, 95, 32, 10});
+        String str = new String(new byte[] {13, 45, 48, 48, 48, 56, 48, 69, 76, 95, 32, 10, 13, 45, 48, 48, 48, 56, 48, 69, 76, 95, 32, 10, 13, 45, 48, 48, 48, 56, 48, 69, 76, 95, 32, 10});
         enviar(str, str, str);
 
         BigDecimal peso = comunicacaoBalanca.lerPeso();
         assertEquals(80, peso.doubleValue(), 0);
     }
+
+    @Test
+    public void lerPesoEstavel9() throws Exception {
+        try {
+            setModoContinuo(true);
+            enviar("0", "1", "4", "7", "0", "0", "\n", "\r", "0", "1", "4", "7", "0", "0", "\n");
+
+            for (int i = 0; i < 5; i++) {
+                BigDecimal peso = comunicacaoBalanca.lerPeso();
+                assertEquals(14700, peso.doubleValue(), 0);
+            }
+        } finally {
+            setModoContinuo(false);
+        }
+    }
+
+
 
 }

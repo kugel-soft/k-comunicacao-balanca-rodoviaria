@@ -54,6 +54,12 @@ public abstract class ComunicacaoBalanca {
 
 				int tentativas = 0;
 				do {
+					if (tentativas > 0) {
+						try {
+							Thread.sleep(10);
+						} catch (Exception ex) {
+						}
+					}
 					byte[] bytes = new byte[BYTES_BUFFER_SIZE];
 					int readBytes = inputStream.read(bytes);
 					if (tentativas == 0 && readBytes > 0 && isIgnorarPrimeirosBytes()) {
@@ -67,12 +73,15 @@ public abstract class ComunicacaoBalanca {
 					} else {
 						bytes = EMPTY_ARRAY;
 					}
-					retorno = rightTrim(new String(bytes));
-					logger.fine("Recebeu: [" + retorno.replace("\r", "\\r").replace("\n", "\\n") + "] bytes: " + Arrays.toString(bytes));
+					String retornoLido = new String(bytes);
+					retorno += retornoLido;
+					logger.finest("Recebeu: [" + retornoLido.replace("\r", "\\r").replace("\n", "\\n") + "] bytes: " + Arrays.toString(bytes));
 					tentativas++;
-				} while (retorno.length() < minChars && tentativas < 10);
+				} while (retorno.length() < minChars && tentativas < 300);
 
-				String[] vals = retorno.trim().replace("\r", "").split("\n");
+				logger.fine("Retorno: [" + retorno.replace("\r", "\\r").replace("\n", "\\n") + "]");
+
+				String[] vals = retorno.trim().split("[\r|\n]");
 				if (vals.length > 1) {
 					int maxLength = 0;
 					for (String val : vals) {
