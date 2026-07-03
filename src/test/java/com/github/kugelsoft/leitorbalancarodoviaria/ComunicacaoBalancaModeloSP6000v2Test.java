@@ -55,12 +55,21 @@ public class ComunicacaoBalancaModeloSP6000v2Test extends TesteBalancaSocket {
         assertNotNull("Deveria ter gerado PesoInstavelException", ex);
     }
 
-
     @Test
     public void lerPesoEstavel() throws Exception {
         enviar("o010000", "o010050");
 
         BigDecimal peso = comunicacaoBalanca.lerPeso();
         assertEquals(10000, peso.doubleValue(), 0);
+    }
+
+    @Test
+    public void lerPeso2() throws Exception {
+        String strPeso = new String(new byte[] { 13, 48, 48, 55, 51, 48, 48, 69, 76, 95, 32, 10 });
+
+        enviar(strPeso, strPeso);
+
+        BigDecimal peso = comunicacaoBalanca.lerPeso();
+        assertEquals(7300, peso.doubleValue(), 0);
     }
 }

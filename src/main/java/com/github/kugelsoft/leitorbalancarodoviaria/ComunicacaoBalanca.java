@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 public abstract class ComunicacaoBalanca {
@@ -83,14 +84,22 @@ public abstract class ComunicacaoBalanca {
 
 				String[] vals = retorno.split("[\r|\n]");
 				if (vals.length > 1) {
+					int qtdComLength = 0;
 					int maxLength = 0;
+					String novoRetorno = retorno;
 					for (String val : vals) {
 						if (maxLength == 0 || val.length() >= maxLength) {
+							if (!val.isEmpty()) {
+								qtdComLength++;
+							}
 							maxLength = val.length();
-							retorno = val;
+							novoRetorno = val;
 						}
 					}
-					logger.fine("Considerando: " + retorno);
+					if (qtdComLength > 1) {
+						retorno = novoRetorno;
+						logger.fine("Considerando: " + retorno);
+					}
 				}
 			}
 
