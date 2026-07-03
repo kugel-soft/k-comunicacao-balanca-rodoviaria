@@ -81,7 +81,7 @@ public abstract class ComunicacaoBalanca {
 
 				logger.fine("Retorno: [" + retorno.replace("\r", "\\r").replace("\n", "\\n") + "]");
 
-				String[] vals = retorno.trim().split("[\r|\n]");
+				String[] vals = retorno.split("[\r|\n]");
 				if (vals.length > 1) {
 					int maxLength = 0;
 					for (String val : vals) {
